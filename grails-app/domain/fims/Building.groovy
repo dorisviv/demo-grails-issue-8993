@@ -3,7 +3,9 @@ package fims
 class Building {
     static hasMany = [floors: Floor]
     static belongsTo = [campus: Campus]
-    static mapping = { sort bldgCode: "asc" }
+    static mapping = {
+        image type: org.hibernate.type.MaterializedBlobType
+        sort bldgCode: "asc" }
 
     Address address
     String bldgCode

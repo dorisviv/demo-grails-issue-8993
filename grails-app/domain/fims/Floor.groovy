@@ -3,6 +3,7 @@ package fims
 class Floor {
     static hasMany = [spaces: Space]
     static belongsTo = [building: Building]
+    static mapping = { image type: org.hibernate.type.MaterializedBlobType }
 
     FloorDescr floorDescr
     Date imageDate

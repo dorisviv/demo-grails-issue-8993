@@ -3,6 +3,7 @@ package fims
 class Campus {
     static hasMany = [buildings:  Building]
     static belongsTo = [institution: Institution]
+    static mapping = { mapImage type: org.hibernate.type.MaterializedBlobType }
 
     String name
     byte[] mapImage

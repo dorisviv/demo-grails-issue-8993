@@ -2,7 +2,9 @@ package fims
 
 class Space {
     static belongsTo = [floor: Floor]
-    static mapping = { sort spaceNum: "asc" }
+    static mapping = {
+        image type: org.hibernate.type.MaterializedBlobType
+        sort spaceNum: "asc" }
 
     String spaceNum
     Integer capacity
