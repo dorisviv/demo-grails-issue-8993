@@ -7,24 +7,24 @@ class AddressIntegrationSpec extends Specification {
 
     def "saving Address to database"() {
         given: "A new address"
-        def locationCode = new LocationCode([code: "1", description: "On Campus"])
+        def locationCodeObj = new LocationCode([code: "1", description: "On Campus"])
         def address = new Address([
                 street1: "800 W. Main Road",
                 city: "Richardson",
                 state: "TX",
                 zip: "12345",
-                locationCode: locationCode])
+                locationCode: locationCodeObj])
         when: "the address is saved"
-        locationCode.save()
+        locationCodeObj.save()
         address.save()
         then: "it saved successfully and can be found in the database"
-        locationCode.errors.errorCount == 0
-        locationCode.id != null
-        locationCode.get(locationCode.id).code == locationCode.code
+        locationCodeObj.errors.errorCount == 0
+        locationCodeObj.id != null
+        LocationCode.get(locationCodeObj.id).code == locationCodeObj.code
         address.errors.errorCount == 0
         address.id != null
         Address.get(address.id).zip == address.zip
-        Address.get(address.id).locationCode.code == locationCode.code
+        Address.get(address.id).locationCode.code == locationCodeObj.code
 
         when: "Where query: simple property comparison"
         def query = Address.where {
