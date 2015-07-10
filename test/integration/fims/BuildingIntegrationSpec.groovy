@@ -21,20 +21,20 @@ class BuildingIntegrationSpec extends Specification {
                 name          : "University of DFW",
                 ficeCode      : "123456"])
         institution.save()
-        def campus = new Campus([name: "Main Campus", institution: institution])
-        campus.save()
+        def campusObj = new Campus([name: "Main Campus", institution: institution])
+        campusObj.save()
         def building = new Building([bldgCode: "AD", address: address])
         when: "the campus and building are saved"
-        building.campus = campus
+        building.campus = campusObj
         building.save()
         then: "it saved successfully and can be found in the database"
-        campus.errors.errorCount == 0
-        campus.id != null
-        Campus.get(campus.id).name == campus.name
+        campusObj.errors.errorCount == 0
+        campusObj.id != null
+        Campus.get(campusObj.id).name == campusObj.name
         building.errors.errorCount == 0
         building.id != null
         Building.get(building.id).bldgCode == building.bldgCode
-        Building.get(building.id).campus.name == campus.name
+        Building.get(building.id).campus.name == campusObj.name
 
         when: "Where query on attribute"
         def query = Building.where {
